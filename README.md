@@ -2,6 +2,11 @@
 
 This tiny Express app forwards any incoming request to a target base URL, optionally through an upstream proxy with a fixed IP.
 
+## Requirements
+
+- Node.js >= 18.18 (tested on 20.x)
+- npm >= 9
+
 ## Setup
 
 1. Install deps:
