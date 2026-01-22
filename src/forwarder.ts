@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { ProxyAgent, request } from "undici";
+import type { Dispatcher } from "undici";
 import type { AppConfig } from "./config.js";
 
 const hopByHopHeaders = new Set([
@@ -37,7 +38,7 @@ export const createForwarder = (config: AppConfig) => {
     req.on("aborted", () => controller.abort());
 
     try {
-      const method = req.method.toUpperCase();
+      const method = req.method.toUpperCase() as Dispatcher.HttpMethod;
       const hasBody = !["GET", "HEAD"].includes(method);
       const outboundHeaders = filterHeaders(
         req.headers as Record<string, string | string[] | undefined>

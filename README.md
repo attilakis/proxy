@@ -28,6 +28,34 @@ ${TARGET_BASE_URL}/<any-path>
 
 Query params, headers, and body are forwarded as-is.
 
+## Examples
+
+Assume `.env` contains:
+
+```
+TARGET_BASE_URL=https://api.binance.com
+PORT=3000
+PROXY_URL=http://user:pass@proxy.example:12345
+```
+
+Then these requests:
+
+```
+curl "http://localhost:3000/api/v3/time"
+curl "http://localhost:3000/api/v3/ticker/price?symbol=BTCUSDT"
+curl -X POST "http://localhost:3000/api/v3/order" \
+  -H "Content-Type: application/json" \
+  -d '{"symbol":"BTCUSDT","side":"BUY","type":"MARKET","quantity":"0.001"}'
+```
+
+Are forwarded to:
+
+```
+https://api.binance.com/api/v3/time
+https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT
+https://api.binance.com/api/v3/order
+```
+
 ## Tests
 
 Run `npm test` to verify forwarding against `https://postman-echo.com`.
